@@ -12,10 +12,10 @@ public class Animal {
     }
 
     String details() {
-        return species + " " + name + " " + age;
+        return species + ": " + name + ", " + age + " years";
     }
 
     void run(int laps) {
-        System.out.println(name + " ran " + laps + " laps.");
+        System.out.println(name + " runs really fast!");
     }
 }

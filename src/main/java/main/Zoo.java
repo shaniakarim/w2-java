@@ -11,23 +11,26 @@ public class Zoo {
         animals = new ArrayList<>();
     }
 
-    void add(Animal a) {
+    void addAnimal(Animal a) {
         animals.add(a);
     }
 
-    void show() {
-        if (animals.size() == 0) {
-            System.out.println("Zoo is empty.");
+    void listAnimals() {
+        if (animals.isEmpty()) {
+            System.out.println(name + " contains no animals.");
         } else {
+            System.out.println(name + " contains the following animals:");
             for (Animal a : animals) {
                 System.out.println(a.details());
             }
         }
     }
 
-    void makeRun(int laps) {
+    void runAnimals(int laps) {
         for (Animal a : animals) {
-            a.run(laps);
+            for (int i = 0; i < laps; i++) {
+                a.run(laps);
+            }
         }
     }
 }

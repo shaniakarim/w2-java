@@ -4,40 +4,64 @@ import java.util.Scanner;
 
 public class App {
     public static void main(String[] args) {
-        Scanner s = new Scanner(System.in);
-        System.out.print("Zoo name: ");
-        Zoo zoo = new Zoo(s.nextLine());
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Please, name the zoo:");
+        String zooName = scanner.nextLine();
+        Zoo zoo = new Zoo(zooName);
 
         while (true) {
-            System.out.println("1 Add animal");
-            System.out.println("2 Show animals");
-            System.out.println("3 Run animals");
-            System.out.println("4 Exit");
-            int choice = s.nextInt();
-            s.nextLine();
+            System.out.println("1) Create a new animal, 2) List all animals, 3) Run animals, 0) End the program");
+            System.out.print("Your choice: ");
+            String input = scanner.nextLine();
 
-            if (choice == 1) {
-                System.out.print("Species: ");
-                String sp = s.nextLine();
-                System.out.print("Name: ");
-                String nm = s.nextLine();
-                System.out.print("Age: ");
-                int ag = s.nextInt();
-                s.nextLine();
-                zoo.add(new Animal(sp, nm, ag));
-            } else if (choice == 2) {
-                zoo.show();
-            } else if (choice == 3) {
-                System.out.print("Laps: ");
-                int laps = s.nextInt();
-                s.nextLine();
-                zoo.makeRun(laps);
-            } else if (choice == 4) {
+            if (input.equals("0")) {
+                System.out.println("Thank you for using the program.");
                 break;
-            } else {
-                System.out.println("Invalid.");
+            }
+
+            switch (input) {
+                case "1":
+                    System.out.println("What species?");
+                    String species = scanner.nextLine();
+                    System.out.println("Enter the name of the animal:");
+                    String name = scanner.nextLine();
+                    System.out.println("Enter the age of the animal:");
+                    int age = -1;
+                    try {
+                        age = Integer.parseInt(scanner.nextLine());
+                        if (age < 0)
+                            throw new NumberFormatException();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid age. Please try again.");
+                        continue;
+                    }
+                    zoo.addAnimal(new Animal(species, name, age));
+                    break;
+
+                case "2":
+                    zoo.listAnimals();
+                    break;
+
+                case "3":
+                    System.out.println("How many laps?");
+                    int laps = -1;
+                    try {
+                        laps = Integer.parseInt(scanner.nextLine());
+                        if (laps <= 0)
+                            throw new NumberFormatException();
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid input. Please enter a positive number.");
+                        continue;
+                    }
+                    zoo.runAnimals(laps);
+                    break;
+
+                default:
+                    System.out.println("Wrong input value");
+                    break;
             }
         }
-        s.close();
+
+        scanner.close();
     }
 }
